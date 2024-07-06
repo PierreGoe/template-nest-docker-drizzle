@@ -25,23 +25,16 @@ jobs:
       - name: Run linter
         run: npm run lint
 
-    # make relase jobs if test job is successful
-  release:
-    runs-on: ubuntu-latest
+  release-please:
     needs: test
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        run: npm install
-      - name: Run standard-version
-      run: npx standard-version --release-as 1.0.0  # Spécifiez ici la version à publier
+    permissions:
+      contents: write # to create release commit (google-github-actions/release-please-action)
+      pull-requests: write # to create release PR (google-github-actions/release-please-action)
 
-    - name: Push Changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
