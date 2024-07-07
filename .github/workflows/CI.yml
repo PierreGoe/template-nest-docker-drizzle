@@ -21,20 +21,6 @@ jobs:
       - name: Run tests
         run: npm test
       - name: run e2e tests
-        run: npm run e2e
+        run: npm run test:e2e
       - name: Run linter
         run: npm run lint
-
-  release-please:
-    needs: test
-    permissions:
-      contents: write # to create release commit (google-github-actions/release-please-action)
-      pull-requests: write # to create release PR (google-github-actions/release-please-action)
-
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v4
-        id: release
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: node
