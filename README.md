@@ -1,4 +1,4 @@
 # README
 
-Welcome to the backend-trav-game project!
+Welcome to template-nest-docker-drizzle
 
